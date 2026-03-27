@@ -39,8 +39,108 @@ import {
   Monitor,
   Wallet,
   Star,
-  Briefcase
+  Briefcase,
+  Coffee,
+  ShieldCheck,
+  BarChart3,
+  Globe2,
+  Lightbulb
 } from "lucide-react";
+
+interface Feature {
+  id: number;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  details: string;
+}
+
+const features: Feature[] = [
+  {
+    id: 1,
+    icon: <Coffee className="w-8 h-8" />,
+    title: "Cup of Tea Awards",
+    description: "Celebrate creativity and innovation with our unique awards system.",
+    details: "Our Cup of Tea Awards recognize the most innovative campaigns and creative content creators in our network. We believe in celebrating the 'perfect brew' of strategy and creativity that leads to exceptional brand growth."
+  },
+  {
+    id: 2,
+    icon: <Users className="w-8 h-8" />,
+    title: "Expert Team",
+    description: "Work with highly skilled professionals delivering premium results.",
+    details: "Our team consists of industry veterans with years of experience in digital PR, influencer management, and brand strategy. We bring a wealth of knowledge to every project, ensuring your brand is in the best hands."
+  },
+  {
+    id: 3,
+    icon: <Rocket className="w-8 h-8" />,
+    title: "Fast Growth Strategy",
+    description: "Boost your brand quickly with smart digital strategies.",
+    details: "We don't just aim for growth; we aim for accelerated, sustainable expansion. Our data-driven strategies are designed to identify the fastest paths to market dominance for your specific niche."
+  },
+  {
+    id: 4,
+    icon: <Target className="w-8 h-8" />,
+    title: "Targeted Marketing",
+    description: "Reach the right audience with precision campaigns.",
+    details: "Precision is at the heart of what we do. We use advanced analytics to ensure your message reaches the exact demographic most likely to convert, maximizing your ROI and minimizing wasted ad spend."
+  },
+  {
+    id: 5,
+    icon: <Lightbulb className="w-8 h-8" />,
+    title: "Creative Ideas",
+    description: "Unique and innovative concepts for your business.",
+    details: "In a crowded digital landscape, standing out is mandatory. Our creative lab generates 'out-of-the-box' concepts that capture attention and foster deep emotional connections between brands and their audiences."
+  },
+  {
+    id: 6,
+    icon: <ShieldCheck className="w-8 h-8" />,
+    title: "Secure System",
+    description: "Your data and platform are fully protected.",
+    details: "Security is non-negotiable. We employ enterprise-grade security protocols to protect your brand's data and ensure that every transaction and interaction within our network is safe and secure."
+  },
+  {
+    id: 7,
+    icon: <BarChart3 className="w-8 h-8" />,
+    title: "Analytics Dashboard",
+    description: "Real-time insights and performance tracking.",
+    details: "Knowledge is power. Our comprehensive analytics dashboard provides real-time visibility into your campaign performance, allowing for agile adjustments and clear reporting on every metric that matters."
+  },
+  {
+    id: 8,
+    icon: <Globe2 className="w-8 h-8" />,
+    title: "Global Reach",
+    description: "Expand your brand worldwide effortlessly.",
+    details: "The world is your marketplace. With our extensive global network of influencers and media partners, we help you transcend borders and establish a powerful presence in international markets."
+  }
+];
+
+const FeatureCard: React.FC<{ feature: Feature, onClick: () => void, isDarkMode: boolean }> = ({ feature, onClick, isDarkMode }) => {
+  return (
+    <motion.div
+      variants={fadeIn}
+      whileHover={{ y: -10 }}
+      onClick={onClick}
+      className={`group relative p-8 rounded-[2rem] cursor-pointer transition-all duration-500 ${
+        isDarkMode 
+          ? 'glass-card border-white/10 hover:shadow-[0_0_30px_rgba(255,122,0,0.2)]' 
+          : 'glass-card-light border-black/5 hover:shadow-[0_20px_40px_rgba(255,122,0,0.15)]'
+      }`}
+    >
+      <div className={`mb-6 p-4 rounded-2xl inline-block transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 ${
+        isDarkMode ? 'bg-white/5 text-[#ff7a00]' : 'bg-[#ff7a00]/10 text-[#ff7a00]'
+      }`}>
+        {feature.icon}
+      </div>
+      <h4 className="text-xl font-bold mb-3 group-hover:text-[#ff7a00] transition-colors">{feature.title}</h4>
+      <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+        {feature.description}
+      </p>
+      
+      {/* Subtle Glow Effect */}
+      <div className="absolute -inset-px rounded-[2rem] bg-gradient-to-br from-[#ff7a00]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+    </motion.div>
+  );
+};
 
 const fadeIn = {
   initial: { opacity: 0, y: 30 },
@@ -356,7 +456,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) 
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
       onAnimationComplete={onComplete}
-      className="fixed inset-0 z-[200] bg-black flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[200] bg-white flex items-center justify-center overflow-hidden"
     >
       <div className="relative">
         {/* Ambient Glow */}
@@ -364,7 +464,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) 
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1.2, opacity: 0.3 }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-          className="absolute inset-0 bg-white blur-[100px] rounded-full"
+          className="absolute inset-0 bg-black blur-[100px] rounded-full"
         />
         
         <motion.div
@@ -396,7 +496,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) 
               <motion.img
                 src="https://i.ibb.co.com/60Y5Z5qG/image.png"
                 alt="RA Media Logo"
-                className="w-full h-full object-cover rounded-full border-2 border-white/20 shadow-[0_0_60px_rgba(255,255,255,0.3)]"
+                className="w-full h-full object-cover rounded-full border-2 border-black/20 shadow-[0_0_60px_rgba(0,0,0,0.1)]"
                 referrerPolicy="no-referrer"
               />
             </motion.div>
@@ -404,7 +504,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) 
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-6 border-2 border-white/10 rounded-full border-t-white/60"
+              className="absolute -inset-6 border-2 border-black/10 rounded-full border-t-black/60"
             />
           </div>
           
@@ -412,7 +512,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) 
             initial={{ opacity: 0, letterSpacing: "0.5em" }}
             animate={{ opacity: 1, letterSpacing: "0.2em" }}
             transition={{ duration: 1, delay: 1 }}
-            className="text-white font-bold text-2xl md:text-4xl tracking-[0.2em]"
+            className="text-black font-bold text-2xl md:text-4xl tracking-[0.2em]"
           >
             RA MEDIA
           </motion.div>
@@ -421,7 +521,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) 
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
             transition={{ duration: 1.5, delay: 1.5, ease: "easeInOut" }}
-            className="h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent mt-4 w-48"
+            className="h-[1px] bg-gradient-to-r from-transparent via-black/50 to-transparent mt-4 w-48"
           />
         </motion.div>
       </div>
@@ -432,7 +532,8 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showOrderForm, setShowOrderForm] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 3500);
@@ -455,8 +556,9 @@ export default function App() {
       >
       {/* Navigation */}
       <nav className="fixed top-6 left-0 right-0 z-50 px-6 pointer-events-none">
-        <div className={`max-w-7xl mx-auto h-16 px-6 flex items-center justify-between rounded-full border transition-all duration-500 pointer-events-auto ${isDarkMode ? 'glass border-white/10' : 'bg-white/90 backdrop-blur-md border-black/10 shadow-xl'}`}>
-          <div className="flex items-center gap-4">
+        <div className={`max-w-7xl mx-auto h-16 px-6 flex items-center justify-between rounded-full border transition-all duration-500 pointer-events-auto ${isDarkMode ? 'glass border-white/10' : 'glass-light border-black/5'} relative overflow-hidden`}>
+          <div className={`absolute inset-0 rounded-full border pointer-events-none ${isDarkMode ? 'border-white/5' : 'border-white/20'}`} />
+          <div className="flex items-center gap-4 relative z-10">
             <img 
               src="https://i.ibb.co.com/60Y5Z5qG/image.png" 
               alt="RA MEDIA" 
@@ -465,16 +567,17 @@ export default function App() {
             />
             <div className="text-xl font-bold tracking-tighter hidden sm:block">RA MEDIA</div>
           </div>
-          <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-colors ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+          <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-colors relative z-10 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
             <a href="#about" className="hover:text-white transition-colors">About</a>
             <a href="#services" className="hover:text-white transition-colors">Services</a>
+            <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#why-us" className="hover:text-white transition-colors">Why Us</a>
             <a href="#influencers" className="hover:text-white transition-colors">For Influencers</a>
             <a href="#network" className="hover:text-white transition-colors">Network</a>
             <a href="#creators" className="hover:text-white transition-colors">Featured Creators</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative z-10">
             <button 
               onClick={() => setIsDarkMode(!isDarkMode)}
               className={`p-2 rounded-full transition-all hover:scale-110 ${isDarkMode ? 'bg-white/10 text-yellow-400 hover:bg-white/20' : 'bg-black/5 text-orange-500 hover:bg-black/10'}`}
@@ -508,7 +611,7 @@ export default function App() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className={`relative w-full max-w-xl p-8 rounded-[2.5rem] border shadow-2xl ${isDarkMode ? 'glass-card border-white/10' : 'bg-white border-black/5'}`}
+              className={`relative w-full max-w-xl p-8 rounded-[2.5rem] border shadow-2xl ${isDarkMode ? 'glass-card border-white/10' : 'glass-card-light border-black/5'}`}
             >
               <button 
                 onClick={() => setShowOrderForm(false)}
@@ -523,6 +626,60 @@ export default function App() {
               </div>
 
               <OrderForm onSubmitSuccess={() => setShowOrderForm(false)} isDarkMode={isDarkMode} />
+            </motion.div>
+          </motion.div>
+        )}
+
+        {selectedFeature && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center px-6"
+          >
+            <div 
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              onClick={() => setSelectedFeature(null)}
+            />
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className={`relative w-full max-w-2xl p-10 rounded-[3rem] border shadow-2xl overflow-hidden ${isDarkMode ? 'glass-card border-white/10' : 'glass-card-light border-black/5'}`}
+            >
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-transparent via-[#ff7a00] to-transparent" />
+              
+              <button 
+                onClick={() => setSelectedFeature(null)}
+                className={`absolute top-8 right-8 p-2 rounded-full transition-colors ${isDarkMode ? 'hover:bg-white/10' : 'hover:bg-black/10'}`}
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <div className="flex flex-col items-center text-center">
+                <motion.div 
+                  initial={{ scale: 0, rotate: -45 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  className={`mb-8 p-6 rounded-3xl ${isDarkMode ? 'bg-white/5 text-[#ff7a00]' : 'bg-[#ff7a00]/10 text-[#ff7a00]'}`}
+                >
+                  {selectedFeature.icon}
+                </motion.div>
+                
+                <h2 className="text-4xl font-bold mb-6 tracking-tight">{selectedFeature.title}</h2>
+                <p className={`text-xl leading-relaxed mb-8 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+                  {selectedFeature.details}
+                </p>
+                
+                <button 
+                  onClick={() => {
+                    setSelectedFeature(null);
+                    setShowOrderForm(true);
+                  }}
+                  className="px-8 py-4 bg-[#ff7a00] text-white font-bold rounded-full hover:bg-[#e66e00] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#ff7a00]/20"
+                >
+                  Get Started with this Service
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -640,7 +797,7 @@ export default function App() {
                   </div>
                 ))}
               </div>
-              <div className={`p-6 rounded-2xl ${isDarkMode ? 'glass-card' : 'bg-white border border-black/5 shadow-sm'}`}>
+              <div className={`p-6 rounded-2xl ${isDarkMode ? 'glass-card' : 'glass-card-light border border-black/5'}`}>
                 <p className={`italic ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                   "Our mission is simple: Help brands reach the right audience through authentic influencer storytelling."
                 </p>
@@ -661,7 +818,7 @@ export default function App() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-8 -left-8 glass-card p-8 rounded-2xl hidden md:block">
+              <div className="absolute -bottom-8 -left-8 glass-card p-8 rounded-2xl hidden md:block border border-white/10">
                 <div className="text-4xl font-bold mb-1">200+</div>
                 <div className="text-sm text-zinc-400">Verified Influencers</div>
               </div>
@@ -720,7 +877,7 @@ export default function App() {
               <motion.div 
                 key={i}
                 variants={fadeIn}
-                className={`p-8 rounded-3xl transition-all ${isDarkMode ? 'glass-card' : 'bg-zinc-50 border border-black/5 shadow-sm'}`}
+                className={`p-8 rounded-3xl transition-all ${isDarkMode ? 'glass-card' : 'glass-card-light border border-black/5'}`}
               >
                 <div className={`mb-6 ${isDarkMode ? 'text-white' : 'text-black'}`}>{service.icon}</div>
                 <h4 className="text-xl font-bold mb-4">{service.title}</h4>
@@ -742,21 +899,21 @@ export default function App() {
               className="grid grid-cols-2 gap-4"
             >
               <div className="space-y-4">
-                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'bg-white border border-black/5 shadow-sm'}`}>
+                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'glass-card-light border border-black/5'}`}>
                   <Award className="w-10 h-10 mb-4" />
                   <div className="font-bold">Verified Network</div>
                 </div>
-                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'bg-white border border-black/5 shadow-sm'}`}>
+                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'glass-card-light border border-black/5'}`}>
                   <Zap className="w-10 h-10 mb-4" />
                   <div className="font-bold">High Engagement</div>
                 </div>
               </div>
               <div className="space-y-4 mt-8">
-                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'bg-white border border-black/5 shadow-sm'}`}>
+                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'glass-card-light border border-black/5'}`}>
                   <Target className="w-10 h-10 mb-4" />
                   <div className="font-bold">Creative Strategy</div>
                 </div>
-                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'bg-white border border-black/5 shadow-sm'}`}>
+                <div className={`p-6 rounded-2xl aspect-square flex flex-col justify-center items-center text-center ${isDarkMode ? 'glass-card' : 'glass-card-light border border-black/5'}`}>
                   <Users className="w-10 h-10 mb-4" />
                   <div className="font-bold">Expert Outreach</div>
                 </div>
@@ -790,6 +947,49 @@ export default function App() {
         </div>
       </section>
 
+      {/* Features & Services Section */}
+      <section id="features" className={`py-24 px-6 overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+            <div className="flex items-start gap-6">
+              <motion.div
+                whileHover={{ rotate: 15, scale: 1.1 }}
+                className="p-4 rounded-2xl border-2 border-[#ff7a00] text-[#ff7a00] bg-[#ff7a00]/5"
+              >
+                <Coffee className="w-10 h-10" />
+              </motion.div>
+              <div>
+                <motion.h2 {...fadeIn} className={`text-sm font-bold uppercase tracking-[0.3em] mb-4 ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>Premium Experience</motion.h2>
+                <motion.h3 {...fadeIn} className="text-4xl md:text-6xl font-bold tracking-tight">Our Features & <br /> <span className="text-[#ff7a00]">Services</span></motion.h3>
+              </div>
+            </div>
+            <motion.p 
+              {...fadeIn}
+              className={`max-w-md text-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}
+            >
+              Elevating brands through a blend of creative excellence and strategic precision.
+            </motion.p>
+          </div>
+
+          <motion.div 
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {features.map((feature) => (
+              <FeatureCard 
+                key={feature.id} 
+                feature={feature} 
+                isDarkMode={isDarkMode}
+                onClick={() => setSelectedFeature(feature)}
+              />
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* For Influencers */}
       <section id="influencers" className={`py-24 px-6 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-20">
@@ -797,7 +997,7 @@ export default function App() {
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.div {...fadeIn} className={`p-12 md:p-20 rounded-[3rem] ${isDarkMode ? 'glass-card' : 'bg-zinc-50 border border-black/5 shadow-sm'}`}>
+          <motion.div {...fadeIn} className={`p-12 md:p-20 rounded-[3rem] ${isDarkMode ? 'glass-card' : 'glass-card-light border border-black/5'}`}>
             <h2 className={`text-sm font-bold uppercase tracking-[0.3em] mb-6 ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>For Influencers</h2>
             <h3 className="text-4xl md:text-6xl font-bold mb-8">Join Our Influencer Network</h3>
             <p className={`text-lg mb-12 leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
